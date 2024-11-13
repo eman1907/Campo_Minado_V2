@@ -13,7 +13,7 @@ Log* abrir_log();
 void registrar_jogada(Log* log, int** mat, int n, int x, int y); 
 
 //imprime a mensagem que informa o usuário em caso de vitória ou derrota
-//e imprime a matriz completa sem a presença do 'x'
+//e imprime a matriz completa sem a presença do 'x' ao final do jogo
 void campo_final(Log* log, int** mat, int n, int ok);
 
 //fecha o arquivo ao fim da função leitura_das_coordenadas
