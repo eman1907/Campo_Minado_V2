@@ -1,6 +1,7 @@
 #include <stdlib.h> 
 #include <time.h> 
 #include "log.h" 
+#include "matriz.h" 
 
 Log* abrir_log(){ 
 	Log* log = malloc(sizeof(Log)); 
@@ -30,6 +31,24 @@ Log* abrir_log(){
  		  } 
  		fprintf(log->arquivo, "\n");
  	 } 
+
+void campo_final(Log* log, int** mat, int n, int ok){
+	for (int x = 0; x < n; x++){
+		for (int y = 0; y < n; y++){
+			if (mat[x][y] != -1) mat[x][y] = inicializa_coordenadas(mat, x, y, n - 1);
+		}
+	}
+
+	if(ok) fprintf(log->arquivo, "Parabéns, vc eh fera!\n");
+	else fprintf(log->arquivo, "Game over!\n");
+	for (int x = 0; x < n; x++){
+		for (int y = 0; y < n; y++){
+		if(mat[x][y] == -1)	fprintf(log->arquivo, " %d" , mat[x][y]);
+		else fprintf(log->arquivo, "  %d" , mat[x][y]);
+		}
+	fprintf(log->arquivo, "\n");
+	}
+}
 
 
  void fechar_log(Log* log){
