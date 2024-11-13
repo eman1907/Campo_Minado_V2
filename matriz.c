@@ -73,7 +73,9 @@ int** resultado_final(int** mat, int acum, int n, int n4){
 
 int leitura_das_coordenadas(int n, int acum, int cont, int n3, int n4, int** mat){ 
 
-	 Log* log = abrir_log(); 
+	Log* log = abrir_log(); 
+
+	 int ok, x, y;
 
 	 //x e y serão lidos pelo usuário como as coordenadas do jogo int ok, x, y;
 	 while (scanf("%d,%d" , &x, &y)){ 
@@ -91,19 +93,19 @@ int leitura_das_coordenadas(int n, int acum, int cont, int n3, int n4, int** mat
 	    y -= 1; 
 
 	    if (mat[x][y] == -10) floodfill(mat, x, y, n4, &cont); 
-
-	    registrar_jogada(log, mat, n, x, y); 
+		
+	   registrar_jogada(log, mat, n, x, y); 
 
 	  for (int i = 0; i < n; i++){ 
 		for (int j = 0; j < n; j++){ 
-			if (mat[i][j] == -10) printf(" x"); //se a matriz nao foi inicializa com -1 ou acum 
+			if (mat[i][j] == -10) printf("  x"); //se a matriz nao foi inicializa com -1 ou acum 
 			else if (mat[i][j] == -1 && (x != i || y != j)){ 
-	          printf(" x"); //todo m[i][j] = -1 ja foi inicilizado, logo ele só aparece caso o usuario digite suas coordenadas
+	          printf("  x"); //todo m[i][j] = -1 ja foi inicilizado, logo ele só aparece caso o usuario digite suas coordenadas
 	 	} 
 	 		else if (mat[i][j] == -1 && (x == i && y == j)){ 
 	 		  printf(" %d" , mat[i][j]);  //imprime -1, somente caso x == i e y == j 
 		} 
-	        else printf(" %d" , mat[i][j]); //imprime os acumuladores já inicializados
+	        else printf("  %d" , mat[i][j]); //imprime os acumuladores já inicializados
 	 	}
 	  printf("\n"); 
 	 } 
@@ -118,7 +120,7 @@ int leitura_das_coordenadas(int n, int acum, int cont, int n3, int n4, int** mat
 	 if (cont == n3) ok = 1; 
 	 else ok = 0;
 
-	 fechar_log(log);
+	fechar_log(log);
 	 return ok; 
  } 
 
@@ -171,8 +173,8 @@ void variaveis_dificuldade(int dif, int *n, int *n2, int *n3, int *n4){
 		if (dif == 1){ 
 			*n = 10; 
 			*n2 = 15;
-		  *n3 = 85; 
-		  *n4 = 9; 
+		    *n3 = 85; 
+		    *n4 = 9; 
 		} 
 		else if (dif == 2){ 
 			*n = 20; 
