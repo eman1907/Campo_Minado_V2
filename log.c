@@ -41,6 +41,7 @@ void campo_final(Log* log, int** mat, int n, int ok){
 
 	if(ok) fprintf(log->arquivo, "Parabéns, vc eh fera!\n");
 	else fprintf(log->arquivo, "Game over!\n");
+	
 	for (int x = 0; x < n; x++){
 		for (int y = 0; y < n; y++){
 		if(mat[x][y] == -1)	fprintf(log->arquivo, " %d" , mat[x][y]);
