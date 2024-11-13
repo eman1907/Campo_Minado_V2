@@ -5,7 +5,7 @@
 #include "log.h" 
 
 
-int iniciliza_coordenadas(int** mat, int x, int y, int n4){ 
+int inicializa_coordenadas(int** mat, int x, int y, int n4){ 
  int acum = 0; 
   if (x < n4 && mat[x + 1][y] == -1) acum++; 
   if (x > 0 && mat[x - 1][y] == -1) acum++; 
@@ -28,7 +28,7 @@ void floodfill(int** mat, int x, int y, int n4, int *cont){
 
 
   //inicializa cada coordenada conforme a quantidade de minas próximas 
-  mat[x][y] = iniciliza_coordenadas(mat, x, y, n4); 
+  mat[x][y] = inicializa_coordenadas(mat, x, y, n4); 
 
 
   (*cont)++; //adiciona um ao contador para cada coordenada inicilalizada 
@@ -63,7 +63,7 @@ void liberar_matriz(int** mat, int lin){
 int** resultado_final(int** mat, int acum, int n, int n4){ 
 	for (int x = 0; x < n; x++){ 
 		for (int y = 0; y < n; y++){ 
-	if (mat[x][y] != - 1) mat[x][y] = iniciliza_coordenadas(mat, x, y, n4); 
+	if (mat[x][y] != - 1) mat[x][y] = inicializa_coordenadas(mat, x, y, n4); 
 		} 
 	  } 
 	return mat;
@@ -120,7 +120,8 @@ int leitura_das_coordenadas(int n, int acum, int cont, int n3, int n4, int** mat
 	 if (cont == n3) ok = 1; 
 	 else ok = 0;
 
-	fechar_log(log);
+     campo_final(log, mat, n, ok);
+	 fechar_log(log);
 	 return ok; 
  } 
 
