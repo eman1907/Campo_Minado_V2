@@ -25,6 +25,7 @@ int cont = 0; //irá de 0 a n3 para indicar se o usuario ganhou o jogo
 
 printf("Coloque as coordenadas desejadas no estilo x,y "); 
 printf("e repita o processo ao final de cada rodada.\n"); printf("obs: não se esqueça da vírgula.\n"); 
+
 //imprime a matriz inicial para o usuário ter noção das dimensões 
 for (int i = 0; i < n; i++){ 
 	for (int j = 0; j < n; j++){
