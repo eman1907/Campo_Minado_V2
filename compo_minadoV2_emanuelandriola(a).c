@@ -2,6 +2,7 @@
 #include <stdlib.h> 
 #include <time.h> 
 #include "matriz.h" 
+#include "log.h"
 
 int main(){ 
 int dif, n, n2, n3, n4; 
@@ -34,9 +35,54 @@ for (int i = 0; i < n; i++){
   printf("\n");
 }
 
-//lerá as coordenadas fornecidas pelo usuário e vai imprimir o campo com as devidas mudanças 
-//ao final da função, será retornado 1 ou 0 
-int ok = leitura_das_coordenadas(n, acum, cont, n3, n4, mat2); 
+Log* log = abrir_log(); 
+
+int x, y, ok; 
+while (scanf("%d,%d" , &x, &y)){ 
+
+	  if ((x < 1 || y < 1) || (x > n || y > n)){ 
+	 printf("Coordenadas indisponíveis, tente outros números.\n"); 
+	   }
+
+	  else if (mat2[x - 1][y - 1] != - 10 && mat2[x - 1][y - 1] != -1){  
+	 printf("Coordenadas repetidas, tente outros números.\n"); 
+	   } 
+
+	  else {
+	    x -= 1; //para o usuario digitar numeros entre 1 e 10, 20 ou 30 
+	    y -= 1; 
+
+	    if (mat[x][y] == -10) floodfill(mat2, x, y, n4, &cont); 
+		
+	   registrar_jogada(log, mat2, n, x, y); 
+
+	  for (int i = 0; i < n; i++){ 
+		for (int j = 0; j < n; j++){ 
+			if (mat2[i][j] == -10) printf("  x"); //se a matriz nao foi inicializa com -1 ou acum 
+			else if (mat2[i][j] == -1 && (x != i || y != j)){ 
+	          printf("  x"); //todo m[i][j] = -1 ja foi inicilizado, logo ele só aparece caso o usuario digite suas coordenadas
+	 	} 
+	 		else if (mat2[i][j] == -1 && (x == i && y == j)){ 
+	 		  printf(" %d" , mat2[i][j]);  //imprime -1, somente caso x == i e y == j 
+		} 
+	        else printf("  %d" , mat2[i][j]); //imprime os acumuladores já inicializados
+	 	}
+	  printf("\n"); 
+	 } 
+
+	 //critério de parada que finaliza o jogo em caso tanto de vitória quanto de derrota 
+	 if (mat2[x][y] == -1 || cont == n3){ 
+	 	break;
+			 }
+	  	}
+	}
+
+if (cont == n3) ok = 1; 
+	else ok = 0;
+
+campo_final(log, mat2, n, ok);
+fechar_log(log);
+
 
 //imprime a mensagem em caso de vitória 
 if (ok){ 
