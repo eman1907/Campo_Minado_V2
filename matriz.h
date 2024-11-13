@@ -1,4 +1,7 @@
 
+int inicializa_coordenadas(int** mat, int x, int y, int n4);
+//função usada dentro de floodfill e resultado_final para calcular o valor de cada coordenada diferente de -1
+
 void variaveis_dificuldade(int dif, int *n, int *n2, int *n3, int *n4);
  //dif lê a dificuldade do jogo, podendo ser fácil, médio ou difícil 
  //n será a ordem da matriz conforme a dificuldade desejada 
