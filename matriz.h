@@ -1,4 +1,7 @@
 
+void floodfill(int** mat, int x, int y, int n4, int *cont);
+//função recursiva que expande o campo em caso das coordenadas aprsentadas não possuirem minas vizinhas
+
 int inicializa_coordenadas(int** mat, int x, int y, int n4);
 //função usada dentro de floodfill e resultado_final para calcular o valor de cada coordenada diferente de -1
 
@@ -17,13 +20,6 @@ int** inicializa_matriz(int n);
  //inclui as minas em posições aleatórias de acordo com a dificuldade do jogo 
  //representadas pelo valor -1 
 
- int leitura_das_coordenadas(int n, int acum, int cont, int n3, int n4, int** mat); 
- /*lê 'x' e 'y' dados pelo usuário, confere se as coordenadas são válidas e não são repetidas, após isso verifica se a mat[x][y] == -1, 
- e em caso positivo imprime o campo com a presença da mina e finaliza a função retornando 0, que significa que o usuário perdeu. 
- Caso mat[x][y] == -10, será chamada a função floodfill que recursivamente iniciliaza todas as casas vizinhas da mina na posicão x,y com 
- o número equivalente a quantidade de minas próximas e repete o processo enquanto o valor for igual a 0, paralelo a essa função, enquanto 
- as casas vizinhas estão sendo inicializadas o endereço do contador esta sendo adicionado 1, assim, quando o contador atingir o valor de n3, 
- a função termina e retorna 1, que significa que o usuário ganhou o jogo. */ 
 
  int** resultado_final(int** mat, int acum, int n, int n4); 
  /*tanto em caso de vitória quanto de derrota será executada essa função afim
