@@ -1,9 +1,12 @@
 
 void floodfill(int** mat, int x, int y, int n4, int *cont);
-//função recursiva que expande o campo em caso das coordenadas aprsentadas não possuirem minas vizinhas
+/*função recursiva que expande o campo em caso das coordenadas apresentadas não possuirem minas vizinhas,
+chama dentro dela a função 'inicializa_coordenadas' para ler o valor de cada coordenada conforme a quantidade
+de minas vizinhas*/
 
 int inicializa_coordenadas(int** mat, int x, int y, int n4);
-//função usada dentro de floodfill e resultado_final para calcular o valor de cada coordenada diferente de -1
+/*função usada dentro de floodfill, resultado_final e campo_final(log.c) 
+para calcular o valor de cada coordenada diferente de -1 */
 
 void variaveis_dificuldade(int dif, int *n, int *n2, int *n3, int *n4);
  //dif lê a dificuldade do jogo, podendo ser fácil, médio ou difícil 
@@ -17,8 +20,8 @@ int** inicializa_matriz(int n);
  //atribuindo -10 a cada coordenada por ser um númeoro impossível no jogo 
 
  int** inicializa_randomico(int** mat, int n2, int n); 
- //inclui as minas em posições aleatórias de acordo com a dificuldade do jogo 
- //representadas pelo valor -1 
+ /*inclui as minas em posições aleatórias de acordo com a dificuldade do jogo 
+ representadas pelo valor -1*/ 
 
 
  int** resultado_final(int** mat, int acum, int n, int n4); 
