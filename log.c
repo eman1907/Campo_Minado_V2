@@ -18,6 +18,11 @@ Log* abrir_log(){
 	return log; 
 }
 
+void coordenada_errada(Log* log, int x, int y, int det){ 
+	if(det) fprintf(log->arquivo, "Coordenadas %d, %d inexistentes, tente outros números.\n\n" , x, y); 
+	else fprintf(log->arquivo, "Coordenadas %d, %d repetidas, tente outros números.\n\n" , x, y);
+}
+
  void registrar_jogada(Log* log, int** mat, int n, int x, int y){ 
 	fprintf(log->arquivo,"Coordenada jogada: %d, %d\n" , x + 1, y + 1);
  	for (int i = 0; i < n; i++){ 
@@ -41,7 +46,7 @@ void campo_final(Log* log, int** mat, int n, int ok){
 
 	if(ok) fprintf(log->arquivo, "Parabéns, vc eh fera!\n");
 	else fprintf(log->arquivo, "Game over!\n");
-	
+
 	for (int x = 0; x < n; x++){
 		for (int y = 0; y < n; y++){
 		if(mat[x][y] == -1)	fprintf(log->arquivo, " %d" , mat[x][y]);
