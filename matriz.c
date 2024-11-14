@@ -1,8 +1,6 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
-#include "matriz.h" 
-
 
 
 int inicializa_coordenadas(int** mat, int x, int y, int n4){ 
@@ -17,7 +15,6 @@ int inicializa_coordenadas(int** mat, int x, int y, int n4){
   if (x < n4 && y < n4 && mat[x + 1][y + 1] == -1) acum++; 
   return acum; 
 } 
-
 
 
 void floodfill(int** mat, int x, int y, int n4, int *cont){ 
@@ -57,7 +54,6 @@ void liberar_matriz(int** mat, int lin){
  	} 
    free(mat); 
 } 
-
 
 
 int** resultado_final(int** mat, int acum, int n, int n4){ 
