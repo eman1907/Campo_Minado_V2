@@ -113,8 +113,8 @@ void variaveis_dificuldade(int dif, int *n, int *n2, int *n3, int *n4){
 		if (dif == 1){ 
 			*n = 10; 
 			*n2 = 15;
-		    *n3 = 85; 
-		    *n4 = 9; 
+		        *n3 = 85; 
+		        *n4 = 9; 
 		} 
 		else if (dif == 2){ 
 			*n = 20; 
