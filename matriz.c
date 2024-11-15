@@ -120,7 +120,7 @@ void variaveis_dificuldade(int dif, int *n, int *n2, int *n3, int *n4){
 		else if (dif == 2){ 
 			*n = 20; 
 			*n2 = 60; 
-			*n3 = 360; 
+			*n3 = 340; 
 			*n4 = 19; 
 		} else if (dif == 3){ 
 			*n = 30; 
