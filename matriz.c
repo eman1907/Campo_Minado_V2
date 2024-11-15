@@ -1,6 +1,7 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
+#include "matriz.h"
 
 
 int inicializa_coordenadas(int** mat, int x, int y, int n4){ 
