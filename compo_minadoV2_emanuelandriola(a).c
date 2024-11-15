@@ -1,8 +1,8 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
-#include "matriz.c" 
-#include "log.c"
+#include "matriz.h" 
+#include "log.h" 
 
 int main(){ 
 int dif, n, n2, n3, n4; 
