@@ -108,6 +108,8 @@ for (int i = 0; i < n; i++){
 
 
 liberar_matriz(mat, n); 
+liberar_matriz(mat2, n);
+liberar_matriz(mat3, n); 
 } 
 
 return 0; 
