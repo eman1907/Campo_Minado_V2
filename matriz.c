@@ -1,132 +1,101 @@
-#include <stdio.h> 
-#include <stdlib.h> 
-#include <time.h> 
-#include "matriz.h"
+#include "matriz.h" 
 
-
-int inicializa_coordenadas(int** mat, int x, int y, int n4){ 
- int acum = 0; 
-  if (x < n4 && mat[x + 1][y] == -1) acum++; 
-  if (x > 0 && mat[x - 1][y] == -1) acum++; 
-  if (y < n4 && mat[x][y + 1] == -1) acum++; 
-  if (y > 0 && mat[x][y - 1] == -1) acum++; 
-  if (x > 0 && y > 0 && mat[x - 1][y - 1] == -1) acum++; 
-  if (x > 0 && y < n4 && mat[x - 1][y + 1] == -1) acum++; 
-  if (x < n4 && y > 0 && mat[x + 1][y - 1] == -1) acum++; 
-  if (x < n4 && y < n4 && mat[x + 1][y + 1] == -1) acum++; 
-  return acum; 
-} 
-
-
-void floodfill(int** mat, int x, int y, int n4, int *cont){ 
-
-  //verifica as "bordas" do campo e se ele ainda nao foi inicializado 
-  // funcionando como critério de parada 
-  if(x >= 0 && y >= 0 && y <= n4 && x <= n4 && mat[x][y] == -10){ 
-
-
-  //inicializa cada coordenada conforme a quantidade de minas próximas 
-  mat[x][y] = inicializa_coordenadas(mat, x, y, n4); 
-
-
-  (*cont)++; //adiciona um ao contador para cada coordenada inicilalizada 
-
-
-  //caso a coordenada não possua minas vizinhas ela 
-  //"expandirá" suas coordenadas próximas usando recursão 
-  if (mat[x][y] == 0) { 
- 	floodfill(mat, x - 1, y - 1, n4, cont); 
- 	floodfill(mat, x - 1, y, n4, cont); 
- 	floodfill(mat, x, y - 1, n4, cont); 
- 	floodfill(mat, x + 1, y, n4, cont);
- 	floodfill(mat, x, y + 1, n4, cont); 
- 	floodfill(mat, x + 1, y + 1, n4, cont); 
- 	floodfill(mat, x + 1, y - 1, n4, cont); 
- 	floodfill(mat, x - 1, y + 1, n4, cont); 
- 		} 
- 	} 
-} 
-
-
-
-void liberar_matriz(int** mat, int lin){ 
- 	for (int i = 0; i < lin; i++){ 
- 	  free(mat[i]); 
- 	} 
-   free(mat); 
-} 
-
-
-int** resultado_final(int** mat, int acum, int n, int n4){ 
-	for (int x = 0; x < n; x++){ 
-		for (int y = 0; y < n; y++){ 
-	if (mat[x][y] != - 1) mat[x][y] = inicializa_coordenadas(mat, x, y, n4); 
-		} 
-	  } 
-	return mat;
-} 
-
-
- int** inicializa_randomico(int** mat, int n2, int n){ 
-	 //faz com que os numeros aleatorios sejam de 1 ate 10,20 ou 30 
-	 int random, random2; 
-	 srand(time(NULL)); 
-	 //util para que os termos deêm números distintos 
-
-	 for (int i = 0; i < n2; i++){ 
-	 random = rand() % n; //gera numeros aleatorios que serao as coordenadas das minas 
-	 random2 = rand() % n; 
-	 // printf("%d %d\n" , random + 1, random2 + 1); 
-
-	 if (mat[random][random2] != -1){ 	 //evita que gere coordenadas repetidas 
-	 mat[random][random2] = -1; 
-		}
-	 else n2++; 
-	} 
-
-	return mat; 
+int** aloca_campo(int tamanho){
+    int** campo = malloc(tamanho * sizeof(int*));
+    if (campo == NULL){
+        printf("Memoria insuficiente\n");
+        exit(1);
+    }
+    for (int i = 0; i < tamanho; i++){
+        campo[i] = malloc(tamanho * sizeof(int));
+        if (campo[i] == NULL){
+            printf("Memoria insuficiente\n");
+            exit(1); 
+        }
+    }
+    return campo; 
 }
 
-
-
-int** inicializa_matriz(int n){ 
-	int* *mat = malloc(n * sizeof(int*)); 
-		if(mat == NULL){ 
-			printf("Memória insuficiente\n"); 
-	} 
-	  for (int i = 0; i < n; i++){ 
-		mat[i] = malloc(n * sizeof(int)); 
-		if(mat[i] == NULL){ 
-			printf("Memória insuficiente\n"); 
-		} 
-	} 
-
-	  for (int i = 0; i < n; i++){ 
-		for (int j = 0; j < n; j++){ 
-			mat[i][j] = -10; 
-			} 
-		}
-
-	 return mat; 
+void preenche_minas(int** campo, int tam, int mina){
+    int x, y;
+    srand(time(NULL));
+    for (int i = 0; i < mina; i++){
+        x = rand() % (tam - 1);
+        y = rand() % (tam - 1);
+        if (campo[x][y] == MINA || x == 0 || y == 0) mina++; 
+        else campo[x][y] = MINA;
+        //printf("x: %d, y: %d\n" , x, y); 
+    }
 }
 
-void variaveis_dificuldade(int dif, int *n, int *n2, int *n3, int *n4){ 
-		if (dif == 1){ 
-			*n = 10; 
-			*n2 = 15;
-		        *n3 = 85; 
-		        *n4 = 9; 
-		} 
-		else if (dif == 2){ 
-			*n = 20; 
-			*n2 = 60; 
-			*n3 = 340; 
-			*n4 = 19; 
-		} else if (dif == 3){ 
-			*n = 30; 
-			*n2 = 135; 
-			*n3 = 765; 
-			*n4 = 29; 
-		} 
-		else printf("Erro, numeração inválida!\n");
+void floodfill(int** campo, int tamanho, int x, int y, int* cont){
+    if (x < 1 || x > tamanho - 2 || y < 1 || y > tamanho - 2 || campo[x][y] != 10) return; 
+    campo[x][y] = calcula_coordenada(campo, tamanho, x, y);
+    (*cont)++;
+    if (campo[x][y] == 0){
+        floodfill(campo, tamanho, x - 1, y - 1, cont);
+        floodfill(campo, tamanho, x, y - 1, cont);
+        floodfill(campo, tamanho, x + 1, y - 1, cont);
+        floodfill(campo, tamanho, x - 1, y, cont);
+        floodfill(campo, tamanho, x + 1, y, cont);
+        floodfill(campo, tamanho, x - 1, y + 1, cont);
+        floodfill(campo, tamanho, x, y + 1, cont);
+        floodfill(campo, tamanho, x + 1, y + 1, cont);
+    }
+}
+
+int calcula_coordenada(int** campo, int tamanho, int x, int y){
+    int cont = 0;
+    if (campo[x - 1][y - 1] == MINA) cont++;
+    if (campo[x][y - 1] == MINA) cont++;
+    if (campo[x + 1][y - 1] == MINA) cont++;
+    if (campo[x - 1][y] == MINA) cont++;
+    if (campo[x + 1][y] == MINA) cont++;
+    if (campo[x - 1][y + 1] == MINA) cont++;
+    if (campo[x][y + 1] == MINA) cont++;
+    if (campo[x + 1][y + 1] == MINA) cont++;
+    return cont; 
+}
+
+void retira_x(int** campo, int tam){
+     for (int i = 1; i < tam - 1; i++){
+        for (int j = 1; j < tam - 1; j++){
+            if (campo[i][j] != MINA) campo[i][j] = calcula_coordenada(campo, tam, i, j);
+        }
+    }
+}
+
+void imprimeCampo(int** campo, int tam){
+    for (int i = 1; i < tam - 1; i++){
+        for (int j = 1; j < tam - 1; j++){
+            if (campo[i][j] == MINA) printf(" %d" , MINA);
+            else printf("  %d" , campo[i][j]);
+        }
+        printf("\n"); 
+    }
+}
+
+void liberaMatriz(int** campo, int tam){
+    for (int i = 0; i < tam; i++){
+        free(campo[i]);
+    }
+    free(campo); 
+}
+
+void nivel_jogo(int nivel, int* tamanho, int* venceu, int* mina){
+    if (nivel == 1) {
+        *tamanho = 12;
+        *venceu = 85; 
+        *mina = 15;
+    } else if (nivel == 2){
+        *tamanho = 22;
+        *venceu = 370;
+        *mina = 30;
+    } else if (nivel == 3) {
+        *tamanho = 32;
+        *venceu = 840;
+        *mina = 60;
+    } else {
+        printf("Numeracao invalida!\n");
+    }
 }
