@@ -1,28 +1,18 @@
-#include <stdio.h> 
-#include <time.h> 
+#include <stdio.h>
+#include <stdlib.h>
+#define MINA -1
 
-//cria uma struct de arquivo que será usada nas funções a seguir
-typedef struct { 
-	FILE* arquivo; 
-} Log; 
+FILE* criar_arquivo(); 
+//cria arquivo.txt e retorna na main
 
-//abre o arquivo e imprime data e hora que o usuário iniciou o jogo
-Log* abrir_log(); 
+void imprime_arquivo_log(FILE* arq, int** campo, int tam, int x, int y); 
+//imprime cada jogada no arquivo semelhamte ao terminal
 
-//imprime quando a coordenada não existe ou já foi iniciaizada, 
-//'det' funciona como diferenciação entre repetida(passa 0 como parametro),
-//e inexistente(passa 1 como parametro)
-void coordenada_errada(Log* log, int x, int y, int det);
+void imprimeCampo_arq(FILE* arq, int** campo, int tam);
+//ao final do jogo, imprime o campo sem a presença de 'x'
 
-//registra cada jogada do usuário imprimindo o campo dentro do arquivo log.txt incluindo
-//as escolhas de jogada do usuário
-void registrar_jogada(Log* log, int** mat, int n, int x, int y); 
+void arq_fimDeJogo(FILE* arq, int det); 
+//declara no arquivo se o usuário venceu ou perdeu
 
-/*imprime a mensagem que informa o usuário em caso de vitória ou derrota
-e imprime a matriz completa sem a presença do 'x' ao final do jogo,
-recebe dentro da função o 'inicializa_coordenadas' para calcular o valor
-de cada coordenada*/
-void campo_final(Log* log, int** mat, int n, int ok);
-
-//fecha o arquivo 
-void fechar_log(Log* log);
+void arq_jogadaErrada(FILE* arq, int x, int y, int det);
+//declara no arquivo jogadas repetidas ou inválidas
