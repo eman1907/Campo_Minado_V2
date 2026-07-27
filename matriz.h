@@ -1,32 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <time.h>
+#define MINA -1
 
-void floodfill(int** mat, int x, int y, int n4, int *cont);
-/*função recursiva que expande o campo em caso das coordenadas apresentadas não possuirem minas vizinhas,
-chama dentro dela a função 'inicializa_coordenadas' para ler o valor de cada coordenada conforme a quantidade
-de minas vizinhas*/
+int** aloca_campo(int tamanho);
+//aloca dinamicamente uma matriz de dimensão tamanho x tamanho
 
-int inicializa_coordenadas(int** mat, int x, int y, int n4);
-/*função usada dentro de floodfill, resultado_final e campo_final(log.c) 
-para calcular o valor de cada coordenada diferente de -1 */
+void preenche_minas(int** campo, int tam, int mina);
+//coloca a quantidade de minas definidas aleatoriamente no campo
 
-void variaveis_dificuldade(int dif, int *n, int *n2, int *n3, int *n4);
- //dif lê a dificuldade do jogo, podendo ser fácil, médio ou difícil 
- //n será a ordem da matriz conforme a dificuldade desejada 
- //n2 vai ser a quantidade de 'minas' no jogo, referente ao numero -1 
- //n3 é o máximo de casas do jogo sem a presença das bombas 
- //n4 é o útimo termo de n 
+int calcula_coordenada(int** campo, int tamanho, int x, int y);
+//calcula o valor de cada coordenada de acordo com a quantidade de minas próximas
 
-int** inicializa_matriz(int n); 
- //aloca a matriz nxn dinamicamente 
- //atribuindo -10 a cada coordenada por ser um númeoro impossível no jogo 
+void floodfill(int** campo, int tamanho, int x, int y, int* cont);
+//preenche de forma recursiva o campo a partir da coordenada escolhida
 
- int** inicializa_randomico(int** mat, int n2, int n); 
- /*inclui as minas em posições aleatórias de acordo com a dificuldade do jogo 
- representadas pelo valor -1*/ 
+void retira_x(int** campo, int tam);
+//calcula o valor de cada coordenada 
 
+void imprimeCampo(int** campo, int tam);
+//imprime campo sem a presença do 'x' ao final do jogo
 
- int** resultado_final(int** mat, int acum, int n, int n4); 
- /*tanto em caso de vitória quanto de derrota será executada essa função afim
-  de apresentar o campo completo sem a presença do 'x'*/ 
+void liberaMatriz(int** campo, int tam);
+//libera matriz alocada dinamicamente
 
-  void liberar_matriz(int** mat, int lin); 
-  //libera o espaço da matriz alocada dinamicamente
+void nivel_jogo(int nivel, int* tamanho, int* venceu, int* mina); 
+//inicializa as variáveis de acordo com a didficulade escolhida pelo usuário
